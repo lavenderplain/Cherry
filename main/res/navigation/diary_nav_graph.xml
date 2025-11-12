@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/diary_nav_graph"
+    app:startDestination="@id/diaryListFragment">
+
+    <fragment
+        android:id="@+id/diaryListFragment"
+        android:name="com.diary.cherry.ui.DiaryListFragment"
+        android:label="@string/diary_list_title">
+        <action
+            android:id="@+id/action_diaryListFragment_to_diaryEditorFragment"
+            app:destination="@id/diaryEditorFragment" />
+        <action
+            android:id="@+id/action_diaryListFragment_to_diaryDetailFragment"
+            app:destination="@id/diaryDetailFragment" />
+        <action
+            android:id="@+id/action_diaryListFragment_to_diarySettingsFragment"
+            app:destination="@id/diarySettingsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/diaryEditorFragment"
+        android:name="com.diary.cherry.ui.DiaryEditorFragment"
+        android:label="@string/diary_editor_title" />
+
+    <fragment
+        android:id="@+id/diaryDetailFragment"
+        android:name="com.diary.cherry.ui.DiaryDetailFragment"
+        android:label="@string/diary_detail_title" />
+
+    <fragment
+        android:id="@+id/diarySettingsFragment"
+        android:name="com.diary.cherry.ui.DiarySettingsFragment"
+        android:label="@string/diary_settings_title" />
+</navigation>
