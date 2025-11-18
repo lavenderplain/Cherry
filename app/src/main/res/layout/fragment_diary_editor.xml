@@ -1,118 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/faint_yellow"
-    android:fillViewport="true"
-    android:foregroundTint="@color/faint_yellow">
+    android:background="@color/faint_yellow"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/faint_yellow"
-        android:orientation="vertical"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/faint_yellow"
+        android:gravity="center"
+        android:orientation="horizontal"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/faint_yellow"
+        android:fillViewport="true"
         android:padding="16dp">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/faint_yellow"
-            android:hint="@string/diary_title"
-            android:textColorHint="@color/faint_yellow"
-            app:boxStrokeColor="@color/faint_yellow"
-            app:boxStrokeErrorColor="@color/faint_yellow"
-            app:counterOverflowTextColor="@color/faint_yellow"
-            app:counterTextColor="@color/faint_yellow"
-            app:cursorColor="@color/faint_yellow"
-            app:cursorErrorColor="@color/faint_yellow"
-            app:endIconTint="@color/faint_yellow"
-            app:errorIconTint="@color/faint_yellow"
-            app:errorTextColor="@color/faint_yellow"
-            app:helperTextTextColor="@color/faint_yellow"
-            app:hintTextColor="@color/faint_yellow"
-            app:passwordToggleTint="@color/faint_yellow"
-            app:placeholderTextColor="@color/faint_yellow"
-            app:prefixTextColor="@color/faint_yellow"
-            app:startIconTint="@color/faint_yellow"
-            app:suffixTextColor="@color/faint_yellow">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/faint_yellow"
-                android:drawableTint="@color/faint_yellow"
-                android:foregroundTint="@color/faint_yellow"
-                android:shadowColor="@color/faint_yellow"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/faint_yellow"
-                android:textColorHint="@color/faint_yellow"
-                android:textColorLink="@color/faint_yellow" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btnPickDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/faint_yellow"
-            android:text="@string/diary_pick_date" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/diary_content"
-            android:textColorHint="@color/faint_yellow"
-            app:boxStrokeColor="@color/faint_yellow"
-            app:endIconTint="@color/faint_yellow"
-            app:helperTextTextColor="@color/faint_yellow"
-            app:hintTextColor="@color/faint_yellow"
-            app:passwordToggleTint="@color/faint_yellow"
-            app:placeholderTextColor="@color/faint_yellow"
-            app:prefixTextColor="@color/faint_yellow"
-            app:startIconTint="@color/faint_yellow"
-            app:suffixTextColor="@color/faint_yellow">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etContent"
-                android:layout_width="match_parent"
-                android:layout_height="561dp"
-                android:backgroundTint="@color/faint_yellow"
-                android:drawableTint="@color/faint_yellow"
-                android:foregroundTint="@color/faint_yellow"
-                android:gravity="top|start"
-                android:inputType="textMultiLine"
-                android:minLines="6"
-                android:shadowColor="@color/faint_yellow"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/faint_yellow"
-                android:textColorHint="@color/faint_yellow"
-                android:textColorLink="@color/faint_yellow" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="end"
-            android:orientation="horizontal">
+            android:background="@color/faint_yellow"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/diary_title"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="18sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/btnCancel"
+                android:id="@+id/btnPickDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/faint_yellow"
-                android:text="@string/action_cancel" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:background="@color/faint_yellow"
+                android:text="@string/diary_pick_date"
+                android:textColor="@color/black" />
 
-            <Button
-                android:id="@+id/btnSave"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:backgroundTint="@color/faint_yellow"
-                android:text="@string/action_save" />
+                android:layout_marginTop="16dp"
+                android:hint="@string/diary_content"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine"
+                    android:minLines="10"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/faint_yellow"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/faint_yellow"
+            android:text="@string/action_cancel"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@color/faint_yellow"
+            android:text="@string/action_save"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
     </LinearLayout>
-</ScrollView>
+
+</LinearLayout>

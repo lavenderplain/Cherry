@@ -2,24 +2,38 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/faint_yellow">
 
-    <ImageButton
-        android:id="@+id/btnSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/diary_settings_title"
-        android:src="@android:drawable/ic_menu_preferences"
-        android:layout_margin="12dp"
-        android:background="?attr/selectableItemBackgroundBorderless" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/faint_yellow"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <ImageButton
+            android:id="@+id/btnSettings"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/diary_settings_title"
+            android:src="@android:drawable/ic_menu_preferences"
+            android:tint="@color/black" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerEntries"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:backgroundTint="@color/faint_yellow"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="@color/faint_yellow"
         android:clipToPadding="false"
         android:paddingBottom="96dp"
+        android:paddingHorizontal="8dp"
+        android:paddingTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -28,11 +42,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
+        android:backgroundTint="@color/faint_yellow"
         android:contentDescription="@string/diary_add_entry"
-        app:backgroundTint="@color/faint_yellow"
-         app:tint="@color/white"
-        app:layout_anchorGravity="bottom|end"
         app:rippleColor="@color/black"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:tint="@color/black" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
