@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="16dp"
         android:background="@color/faint_yellow"
         android:gravity="center"
         android:orientation="horizontal"/>
@@ -26,11 +26,31 @@
             android:layout_height="wrap_content"
             android:background="@color/faint_yellow"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="1dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="选择表情:"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:id="@+id/emojiContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:hint="@string/diary_title"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
@@ -54,6 +74,117 @@
                 android:background="@color/faint_yellow"
                 android:text="@string/diary_pick_date"
                 android:textColor="@color/black" />
+
+            <!-- 手写区域 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="手写区域:"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <com.diary.cherry.ui.HandwritingView
+                android:id="@+id/handwritingView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnClearHandwriting"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/faint_yellow"
+                    android:text="清除"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/btnSaveHandwriting"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/faint_yellow"
+                    android:text="保存手写"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <!-- 手写预览 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="手写预览:"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/ivHandwritingPreview"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:visibility="gone" />
+
+            <!-- 音乐功能 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="背景音乐:"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnSelectMusic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/faint_yellow"
+                    android:text="选择音乐"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/btnPlayMusic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/faint_yellow"
+                    android:text="播放"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/btnStopMusic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/faint_yellow"
+                    android:text="停止"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvSelectedMusic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="未选择音乐"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

@@ -82,4 +82,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-process:2.7.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation("com.google.android.material:material:1.9.0")
 }

@@ -59,6 +59,45 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
+            <!-- 显示表情 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="表情:"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:id="@+id/emojiContainerDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+            <!-- 手写图片显示区域 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="手写内容:"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/ivHandwriting"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:visibility="gone" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -74,6 +113,18 @@
                 android:text="@string/diary_content_placeholder"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
+
+            <!-- 音乐信息 -->
+            <TextView
+                android:id="@+id/tvMusicInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="无背景音乐"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <!-- 移除备忘录提醒信息 -->
 
         </LinearLayout>
     </ScrollView>
@@ -112,6 +163,35 @@
             android:text="@string/action_edit"
             android:textColor="@color/black"
             android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- 音乐控制按钮 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/faint_yellow"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/btnPlayMusicDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/faint_yellow"
+            android:text="播放音乐"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/btnStopMusicDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/faint_yellow"
+            android:text="停止"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 

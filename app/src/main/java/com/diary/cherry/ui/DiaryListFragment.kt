@@ -55,6 +55,16 @@ class DiaryListFragment : Fragment() {
         }
 
         loadDiaries()
+
+        // 在 onViewCreated 方法中添加备忘录按钮
+        view.findViewById<ImageButton>(R.id.btnSettings).setOnClickListener {
+            findNavController().navigate(R.id.action_diaryListFragment_to_diarySettingsFragment)
+        }
+
+        // 添加备忘录按钮
+        view.findViewById<ImageButton>(R.id.btnReminders)?.setOnClickListener {
+            findNavController().navigate(R.id.action_diaryListFragment_to_reminderListFragment)
+        }
     }
 
     override fun onResume() {

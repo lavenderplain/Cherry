@@ -10,18 +10,10 @@ import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.nio.charset.Charset
-import java.util.UUID
+import java.util.*
 
 /**
- * 日记存储类：将日记以 JSON 文件存储至应用专属存储中。
- * 目录优先：context.getExternalFilesDir("diary")，否则：filesDir/diary。
- *
- * JSON 字段：
- * - id: String
- * - title: String?
- * - content: String
- * - createdAt: Long (epoch millis)
- * - updatedAt: Long (epoch millis)
+ * 日记存储类：扩展支持表情、手写、音乐功能
  */
 class DiarySave(private val context: Context) {
     private val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
@@ -34,12 +26,23 @@ class DiarySave(private val context: Context) {
         }
     }
 
+    // 手写图片存储目录
+    private val handwritingDir: File by lazy {
+        File(diaryDir, "handwriting").apply { mkdirs() }
+    }
+
+    // 背景音乐存储目录
+    private val musicDir: File by lazy {
+        File(diaryDir, "music").apply { mkdirs() }
+    }
+
     private val charset: Charset = Charsets.UTF_8
 
     /**
-     * 新增一篇日记，返回创建的文件。
+     * 新增一篇日记，支持扩展字段
      */
-    fun addNew(content: String, title: String? = null): File {
+    fun addNew(content: String, title: String? = null, emojis: List<String>? = null, 
+               handwritingPaths: List<String>? = null, musicPath: String? = null): File {
         val id = UUID.randomUUID().toString()
         val now = System.currentTimeMillis()
         val json = JSONObject().apply {
@@ -48,35 +51,132 @@ class DiarySave(private val context: Context) {
             put("content", content)
             put("createdAt", now)
             put("updatedAt", now)
+            
+            // 新增字段
+            if (emojis != null) put("emojis", JSONObject().apply {
+                emojis.forEachIndexed { index, emoji ->
+                    put("emoji_$index", emoji)
+                }
+            })
+            
+            if (handwritingPaths != null) put("handwritingPaths", JSONObject().apply {
+                handwritingPaths.forEachIndexed { index, path ->
+                    put("path_$index", path)
+                }
+            })
+            
+            put("musicPath", musicPath)
         }
         val file = fileOf(id)
-        // 日记创建时不需要异步
         writeFileAtomic(file, json.toString())
         return file
     }
 
     /**
-     * 按 id 保存（存在则更新，不存在则创建），返回文件。
+     * 保存或更新日记，支持扩展字段
      */
-    suspend fun saveOrUpdate(id: String, content: String, title: String? = null): File {
+    suspend fun saveOrUpdate(id: String, content: String, title: String? = null, 
+                           emojis: List<String>? = null, handwritingPaths: List<String>? = null,
+                           musicPath: String? = null): File {
         val file = fileOf(id)
         val now = System.currentTimeMillis()
         val json = if (file.exists()) {
-            // 更新：保留 createdAt
             runCatching { JSONObject(file.readText(charset)) }.getOrNull() ?: JSONObject().put("id", id)
         } else {
             JSONObject().put("id", id).put("createdAt", now)
         }
+        
         json.put("title", title)
         json.put("content", content)
         json.put("updatedAt", now)
+        
+        // 更新扩展字段
+        if (emojis != null) {
+            val emojisJson = JSONObject()
+            emojis.forEachIndexed { index, emoji ->
+                emojisJson.put("emoji_$index", emoji)
+            }
+            json.put("emojis", emojisJson)
+        }
+        
+        if (handwritingPaths != null) {
+            val pathsJson = JSONObject()
+            handwritingPaths.forEachIndexed { index, path ->
+                pathsJson.put("path_$index", path)
+            }
+            json.put("handwritingPaths", pathsJson)
+        }
+        
+        json.put("musicPath", musicPath)
+        
         writeFileAtomicAsync(file, json.toString())
         return file
     }
 
     /**
-     * 读取指定 id 的日记 JSON 字符串（不存在返回 null）。
+     * 获取表情列表
      */
+    fun getEmojis(id: String): List<String> {
+        val jsonString = loadAsJsonString(id) ?: return emptyList()
+        return runCatching {
+            val json = JSONObject(jsonString)
+            val emojisJson = json.optJSONObject("emojis") ?: return emptyList()
+            val emojis = mutableListOf<String>()
+            val keys = emojisJson.keys()
+            while (keys.hasNext()) {
+                emojis.add(emojisJson.getString(keys.next()))
+            }
+            emojis
+        }.getOrElse { emptyList() }
+    }
+
+    /**
+     * 获取手写图片路径列表
+     */
+    fun getHandwritingPaths(id: String): List<String> {
+        val jsonString = loadAsJsonString(id) ?: return emptyList()
+        return runCatching {
+            val json = JSONObject(jsonString)
+            val pathsJson = json.optJSONObject("handwritingPaths") ?: return emptyList()
+            val paths = mutableListOf<String>()
+            val keys = pathsJson.keys()
+            while (keys.hasNext()) {
+                paths.add(pathsJson.getString(keys.next()))
+            }
+            paths
+        }.getOrElse { emptyList() }
+    }
+
+    /**
+     * 获取背景音乐路径
+     */
+    fun getMusicPath(id: String): String? {
+        val jsonString = loadAsJsonString(id) ?: return null
+        return runCatching { 
+            JSONObject(jsonString).optString("musicPath", null) 
+        }.getOrNull()
+    }
+
+    /**
+     * 保存手写图片
+     */
+    fun saveHandwritingImage(bitmapData: ByteArray, diaryId: String): String {
+        val fileName = "handwriting_${diaryId}_${System.currentTimeMillis()}.png"
+        val file = File(handwritingDir, fileName)
+        file.writeBytes(bitmapData)
+        return file.absolutePath
+    }
+
+    /**
+     * 保存背景音乐
+     */
+    fun saveMusicFile(musicData: ByteArray, originalName: String): String {
+        val fileName = "music_${System.currentTimeMillis()}_$originalName"
+        val file = File(musicDir, fileName)
+        file.writeBytes(musicData)
+        return file.absolutePath
+    }
+
     fun loadAsJsonString(id: String): String? {
         val file = fileOf(id)
         if (!file.exists()) return null
@@ -85,51 +185,47 @@ class DiarySave(private val context: Context) {
         }.getOrNull()
     }
 
-    /**
-     * 读取指定 id 的内容文本（若 JSON 不含 content 或文件不存在返回 null）。
-     */
     fun loadContent(id: String): String? {
         val json = loadAsJsonString(id) ?: return null
         return runCatching { JSONObject(json).optString("content", null) }.getOrNull()
     }
 
-    /**
-     * 列出所有日记文件，按最后修改时间倒序。
-     */
     fun listAllFiles(): List<File> {
         val files = diaryDir.listFiles { f -> f.isFile && f.name.endsWith(".json") } ?: emptyArray()
         return files.sortedByDescending { it.lastModified() }
     }
 
-    /**
-     * 删除指定 id 的日记。
-     */
     fun delete(id: String): Boolean {
+        // 删除关联的手写图片和音乐文件
+        val handwritingPaths = getHandwritingPaths(id)
+        handwritingPaths.forEach { path ->
+            runCatching { File(path).delete() }
+        }
+        
+        val musicPath = getMusicPath(id)
+        musicPath?.let { path ->
+            runCatching { File(path).delete() }
+        }
+        
         return fileOf(id).delete()
     }
 
-    /**
-     * 清空所有日记，返回删除数量。
-     */
     fun clearAll(): Int {
         val files = diaryDir.listFiles() ?: return 0
         var count = 0
         files.forEach { f ->
             if (f.isFile && f.delete()) count++
         }
+        // 同时清空手写和音乐目录
+        handwritingDir.listFiles()?.forEach { it.delete() }
+        musicDir.listFiles()?.forEach { it.delete() }
         return count
     }
 
-    /**
-     * 返回存储目录。
-     */
     fun storageDir(): File = diaryDir
 
     private fun fileOf(id: String): File = File(diaryDir, "$id.json")
 
-    /**
-     * 原子写入：先写入临时文件，再重命名覆盖目标文件。
-     */
     private fun writeFileAtomic(target: File, content: String) {
         val tmp = File(target.parentFile, target.name + ".tmp")
         try {
@@ -139,15 +235,11 @@ class DiarySave(private val context: Context) {
             }
         } catch (e: Exception) {
             Timber.e(e, "Atomic write failed: %s", target.absolutePath)
-            // 清理临时文件
             runCatching { if (tmp.exists()) tmp.delete() }
             throw e
         }
     }
 
-    /**
-     * 异步原子写入：使用协程实现异步非阻塞。
-     */
     private suspend fun writeFileAtomicAsync(target: File, content: String) = withContext(Dispatchers.IO) {
         val tmp = File(target.parentFile, target.name + ".tmp")
         try {
@@ -157,7 +249,6 @@ class DiarySave(private val context: Context) {
             }
         } catch (e: Exception) {
             Timber.e(e, "Atomic write failed: %s", target.absolutePath)
-            // 清理临时文件
             runCatching { if (tmp.exists()) tmp.delete() }
             throw e
         }

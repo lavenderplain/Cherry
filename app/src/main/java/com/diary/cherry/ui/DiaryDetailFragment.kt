@@ -1,13 +1,12 @@
-// [file name]: DiaryDetailFragment.kt
-// [修改位置：移除navArgs，改用arguments获取参数]
 package com.diary.cherry.ui
 
+import android.graphics.BitmapFactory
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.diary.cherry.R
@@ -21,6 +20,7 @@ class DiaryDetailFragment : Fragment() {
 
     private lateinit var diarySave: DiarySave
     private lateinit var diaryId: String
+    private var mediaPlayer: MediaPlayer? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_diary_detail, container, false)
@@ -30,8 +30,6 @@ class DiaryDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         diarySave = DiarySave(requireContext())
-
-        // 从arguments获取diaryId参数
         diaryId = arguments?.getString("diaryId") ?: run {
             Snackbar.make(view, "日记ID不存在", Snackbar.LENGTH_SHORT).show()
             findNavController().navigateUp()
@@ -41,7 +39,6 @@ class DiaryDetailFragment : Fragment() {
         loadDiaryData(view)
 
         view.findViewById<Button>(R.id.btnEdit).setOnClickListener {
-            // 创建Bundle传递参数
             val bundle = Bundle().apply {
                 putString("diaryId", diaryId)
             }
@@ -54,6 +51,15 @@ class DiaryDetailFragment : Fragment() {
 
         view.findViewById<Button>(R.id.btnShare).setOnClickListener {
             shareDiary(view)
+        }
+
+        // 音乐播放控制
+        view.findViewById<Button>(R.id.btnPlayMusicDetail).setOnClickListener {
+            playMusic()
+        }
+
+        view.findViewById<Button>(R.id.btnStopMusicDetail).setOnClickListener {
+            stopMusic()
         }
     }
 
@@ -74,6 +80,52 @@ class DiaryDetailFragment : Fragment() {
                 view.findViewById<TextView>(R.id.tvDate).text = dateString
                 view.findViewById<TextView>(R.id.tvContent).text = content
 
+                // 显示表情
+                val emojis = diarySave.getEmojis(diaryId)
+                val emojiContainer = view.findViewById<LinearLayout>(R.id.emojiContainerDetail)
+                emojiContainer.removeAllViews()
+                if (emojis.isNotEmpty()) {
+                    emojis.forEach { emoji ->
+                        val textView = TextView(requireContext()).apply {
+                            text = emoji
+                            textSize = 24f
+                            setPadding(8, 4, 8, 4)
+                        }
+                        emojiContainer.addView(textView)
+                    }
+                } else {
+                    val textView = TextView(requireContext()).apply {
+                        text = "无表情"
+                        textSize = 14f
+                        setTextColor(resources.getColor(android.R.color.darker_gray, null))
+                    }
+                    emojiContainer.addView(textView)
+                }
+
+                // 显示手写图片 - 直接显示第一张图片
+                val handwritingPaths = diarySave.getHandwritingPaths(diaryId)
+                val handwritingImage = view.findViewById<ImageView>(R.id.ivHandwriting)
+
+                if (handwritingPaths.isNotEmpty()) {
+                    // 显示第一张手写图片
+                    try {
+                        val bitmap = BitmapFactory.decodeFile(handwritingPaths[0])
+                        handwritingImage.setImageBitmap(bitmap)
+                        handwritingImage.visibility = View.VISIBLE
+                    } catch (e: Exception) {
+                        Timber.e(e, "Failed to load handwriting image")
+                        handwritingImage.visibility = View.GONE
+                    }
+                } else {
+                    handwritingImage.visibility = View.GONE
+                }
+
+                // 显示音乐信息
+                val musicPath = diarySave.getMusicPath(diaryId)
+                view.findViewById<TextView>(R.id.tvMusicInfo).text =
+                    if (musicPath != null) "已添加背景音乐"
+                    else "无背景音乐"
+
             } catch (e: Exception) {
                 Timber.e(e, "Failed to parse diary data")
                 Snackbar.make(view, "加载日记失败", Snackbar.LENGTH_SHORT).show()
@@ -82,6 +134,38 @@ class DiaryDetailFragment : Fragment() {
             Snackbar.make(view, "日记不存在", Snackbar.LENGTH_SHORT).show()
             findNavController().navigateUp()
         }
+    }
+
+    private fun playMusic() {
+        val musicPath = diarySave.getMusicPath(diaryId)
+        musicPath?.let { path ->
+            try {
+                mediaPlayer?.release()
+                mediaPlayer = MediaPlayer().apply {
+                    setDataSource(path)
+                    prepare()
+                    start()
+                }
+                Snackbar.make(requireView(), "开始播放背景音乐", Snackbar.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to play music")
+                Snackbar.make(requireView(), "播放音乐失败", Snackbar.LENGTH_SHORT).show()
+            }
+        } ?: run {
+            Snackbar.make(requireView(), "此日记没有背景音乐", Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun stopMusic() {
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
+        Snackbar.make(requireView(), "停止播放音乐", Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mediaPlayer?.release()
     }
 
     private fun deleteDiary(view: View) {

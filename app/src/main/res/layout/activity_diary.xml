@@ -2,15 +2,18 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/faint_yellow"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:backgroundTint="@color/faint_yellow"
         android:title="@string/app_name"
+        android:titleTextColor="@color/black"
         app:layout_scrollFlags="scroll|enterAlways" />
 
     <androidx.fragment.app.FragmentContainerView
@@ -18,33 +21,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
+        android:backgroundTint="@color/faint_yellow"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/diary_nav_graph"
-        android:name="androidx.navigation.fragment.NavHostFragment" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:layout_gravity="bottom"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/btnOpenDiary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:backgroundTint="@color/faint_yellow"
-            android:text="@string/open_diary" />
-
-    </LinearLayout>
+        app:navGraph="@navigation/diary_nav_graph" />
 
     <Button
-            android:id="@+id/btnTestError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/generate_test_error" 
-            android:visibility="gone" />  
+        android:id="@+id/btnTestError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/faint_yellow"
+        android:text="@string/generate_test_error"
+        android:textColor="@color/black"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

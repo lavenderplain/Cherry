@@ -21,44 +21,31 @@ class CherryActivity : AppCompatActivity(R.layout.activity_diary) {
         val toolbar = findViewById<MaterialToolbar>(R.id.topAppBar)
         setSupportActionBar(toolbar)
 
-        // +++ 新增代码开始 +++
-        val btnOpenDiary = findViewById<Button>(R.id.btnOpenDiary)
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            // 只在主页面显示打开日记按钮
-            btnOpenDiary.visibility = if (destination.id == R.id.diaryListFragment) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
-        }
-        // +++ 新增代码结束 +++
-
+        //显示页面标题，例如"日记列表"
         setupActionBarWithNavController(navController)
+
+        // 处理通知点击
+        handleNotificationIntent()
 
         // 示例按钮，用于测试日志异常输出
         findViewById<Button>(R.id.btnTestError).setOnClickListener {
             try {
                 throw RuntimeException("Test exception from button click")
             } catch (e: Exception) {
-              Timber.e(e, "Test error occurred by custom")
-           }
-        }
-
-        // 功能按钮，打开日记编辑界面
-        // 待完善
-        findViewById<Button>(R.id.btnOpenDiary).setOnClickListener {
-            try {
-                val current = navController.currentDestination?.id
-                if (current == R.id.diaryListFragment) {
-                    navController.navigate(R.id.action_diaryListFragment_to_diaryEditorFragment)
-                } else if (current != R.id.diaryEditorFragment) {
-                    navController.navigate(R.id.diaryEditorFragment)
-                }
-                Timber.log(Log.INFO, "Navigated to DiaryEditorFragment")
-            } catch (e: Exception) {
-                Timber.e(e, "Navigation error occurred")
+                Timber.e(e, "Test error occurred by custom")
             }
+        }
+    }
+
+    private fun handleNotificationIntent() {
+        val diaryId = intent.getStringExtra("OPEN_DIARY_ID")
+        diaryId?.let { id ->
+            // 导航到日记详情页面
+            val bundle = Bundle().apply {
+                putString("diaryId", id)
+            }
+            val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_diary) as NavHostFragment
+            navHostFragment.navController.navigate(R.id.diaryDetailFragment, bundle)
         }
     }
 

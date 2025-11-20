@@ -17,6 +17,10 @@
         <action
             android:id="@+id/action_diaryListFragment_to_diarySettingsFragment"
             app:destination="@id/diarySettingsFragment" />
+        <!-- 添加备忘录导航 -->
+        <action
+            android:id="@+id/action_diaryListFragment_to_reminderListFragment"
+            app:destination="@id/reminderListFragment" />
     </fragment>
 
     <fragment
@@ -33,4 +37,20 @@
         android:id="@+id/diarySettingsFragment"
         android:name="com.diary.cherry.ui.DiarySettingsFragment"
         android:label="@string/diary_settings_title" />
+
+    <!-- 添加备忘录相关的Fragment -->
+    <fragment
+        android:id="@+id/reminderListFragment"
+        android:name="com.diary.cherry.ui.ReminderListFragment"
+        android:label="@string/reminder_list_title">
+        <action
+            android:id="@+id/action_reminderListFragment_to_reminderEditorFragment"
+            app:destination="@id/reminderEditorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/reminderEditorFragment"
+        android:name="com.diary.cherry.ui.ReminderEditorFragment"
+        android:label="@string/reminder_editor_title" />
+
 </navigation>
