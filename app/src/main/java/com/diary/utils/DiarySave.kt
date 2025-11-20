@@ -125,10 +125,17 @@ class DiarySave(private val context: Context) {
      */
     fun storageDir(): File = diaryDir
 
+    /**
+     * 根据 id 获取对应的文件。
+     * @param id 日记 ID
+     * @return 对应的文件
+     */
     private fun fileOf(id: String): File = File(diaryDir, "$id.json")
 
     /**
      * 原子写入：先写入临时文件，再重命名覆盖目标文件。
+     * @param target 目标文件
+     * @param content 写入内容
      */
     private fun writeFileAtomic(target: File, content: String) {
         val tmp = File(target.parentFile, target.name + ".tmp")
@@ -147,6 +154,8 @@ class DiarySave(private val context: Context) {
 
     /**
      * 异步原子写入：使用协程实现异步非阻塞。
+     * @param target 目标文件
+     * @param content 写入内容
      */
     private suspend fun writeFileAtomicAsync(target: File, content: String) = withContext(Dispatchers.IO) {
         val tmp = File(target.parentFile, target.name + ".tmp")

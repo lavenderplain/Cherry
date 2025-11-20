@@ -78,8 +78,12 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
+    val roomVersion = "2.5.2"
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0") // 版本号可以更新
     implementation("androidx.lifecycle:lifecycle-process:2.7.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation ("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor ("androidx.room:room-compiler:$roomVersion")
+    implementation ("androidx.room:room-ktx:$roomVersion") // Kotlin扩展和协程支持
 }
