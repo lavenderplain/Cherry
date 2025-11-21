@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- 完成状态指示器 -->
+        <View
+            android:id="@+id/completed_indicator"
+            android:layout_width="4dp"
+            android:layout_height="0dp"
+            android:background="@color/memo_completed_indicator"
+            android:contentDescription="@string/completed_status_indicator"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 备忘录标题 -->
+        <TextView
+            android:id="@+id/memo_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/memo_title_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/completed_indicator"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/memo_title_placeholder" />
+
+        <!-- 备忘录内容 -->
+        <TextView
+            android:id="@+id/memo_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/memo_content_color"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/memo_title"
+            app:layout_constraintTop_toBottomOf="@id/memo_title"
+            tools:text="@string/memo_content_placeholder" />
+
+        <!-- 提醒信息 -->
+        <TextView
+            android:id="@+id/memo_reminder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/memo_reminder_color"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/memo_content"
+            app:layout_constraintTop_toBottomOf="@id/memo_content"
+            tools:text="@string/reminder_info_placeholder"
+            tools:visibility="visible" />
+
+        <!-- 日期 -->
+        <TextView
+            android:id="@+id/memo_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            android:textColor="@color/memo_date_color"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/memo_reminder"
+            app:layout_constraintTop_toBottomOf="@id/memo_reminder"
+            tools:text="@string/memo_date_placeholder" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

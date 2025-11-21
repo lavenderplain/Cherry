@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/diaryFragment">
+
+    <!-- 日记Fragment -->
+    <fragment
+        android:id="@+id/diaryFragment"
+        android:name="com.diary.cherry.DiaryFragment"
+        android:label="日记"
+        tools:layout="@layout/fragment_diary">
+        
+        <!-- 跳转到日记详情页面的动作 -->
+        <action
+            android:id="@+id/action_diaryFragment_to_diaryDetailActivity"
+            app:destination="@id/diaryDetailActivity" />
+    </fragment>
+
+    <!-- 备忘录Fragment -->
+    <fragment
+        android:id="@+id/memoFragment"
+        android:name="com.diary.cherry.MemoFragment"
+        android:label="备忘录"
+        tools:layout="@layout/fragment_memo">
+        
+        <!-- 跳转到备忘录详情页面的动作 -->
+        <action
+            android:id="@+id/action_memoFragment_to_memoDetailActivity"
+            app:destination="@id/memoDetailActivity" />
+    </fragment>
+
+    <!-- 设置Fragment -->
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.diary.cherry.SettingsFragment"
+        android:label="设置"
+        tools:layout="@layout/fragment_settings" />
+
+    <!-- 日记详情Activity -->
+    <activity
+        android:id="@+id/diaryDetailActivity"
+        android:name="com.diary.cherry.DiaryDetailActivity"
+        android:label="日记详情">
+        
+        <!-- 参数传递 -->
+        <argument
+            android:name="diaryId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="diaryTitle"
+            android:defaultValue=""
+            app:argType="string" />
+        <argument
+            android:name="diaryContent"
+            android:defaultValue=""
+            app:argType="string" />
+    </activity>
+
+    <!-- 备忘录详情Activity -->
+    <activity
+        android:id="@+id/memoDetailActivity"
+        android:name="com.diary.cherry.MemoDetailActivity"
+        android:label="备忘录详情">
+        
+        <!-- 参数传递 -->
+        <argument
+            android:name="memoId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="memoTitle"
+            android:defaultValue=""
+            app:argType="string" />
+        <argument
+            android:name="memoContent"
+            android:defaultValue=""
+            app:argType="string" />
+    </activity>
+
+</navigation>

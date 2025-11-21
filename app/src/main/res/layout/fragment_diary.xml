@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f8f9fa">
+
+    <!-- 日记列表 -->
+
+    <!-- 添加日记的浮动按钮 -->
+
+    <!-- 空状态提示 -->
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/diary_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_diary"
+            android:layout_width="wrap_content"
+            android:layout_height="83dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:src="@android:drawable/ic_input_add"
+            android:contentDescription="添加日记"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="47dp"
+            android:layout_marginBottom="62dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
+
+    <TextView
+        android:id="@+id/empty_state_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="还没有日记，点击右下角按钮添加"
+        android:textSize="16sp"
+        android:textColor="#666"
+        android:visibility="gone" />
+
+</RelativeLayout>
