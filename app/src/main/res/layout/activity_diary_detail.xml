@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#f8f9fa">
+
+    <!-- 头部操作栏 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:id="@+id/back_btn"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/diary_detail"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/delete_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            android:backgroundTint="@color/delete_button_color"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/mode_switch_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit"
+            android:backgroundTint="?attr/colorPrimary" />
+
+    </LinearLayout>
+
+    <!-- 日期信息 -->
+    <TextView
+        android:id="@+id/date_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/creation_time"
+        android:textSize="12sp"
+        android:textColor="#666"
+        android:layout_marginBottom="16dp" />
+
+    <!-- 标题区域 -->
+    <TextView
+        android:id="@+id/title_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="这是一个标题"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="12dp"
+        android:background="@drawable/rounded_corner_diary"
+        android:elevation="2dp" />
+
+    <EditText
+        android:id="@+id/title_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_title"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:background="@drawable/rounded_corner_edit_diary"
+        android:elevation="2dp"
+        android:visibility="gone" />
+
+    <!-- 内容区域 -->
+    <TextView
+        android:id="@+id/content_label"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:text="这是日记的内容预览。"
+        android:textSize="14sp"
+        android:padding="12dp"
+        android:background="@drawable/rounded_corner_diary"
+        android:elevation="2dp"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/content_edit"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="@string/hint_content"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:minLines="10"
+        android:padding="12dp"
+        android:background="@drawable/rounded_corner_edit_diary"
+        android:elevation="2dp"
+        android:visibility="gone"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

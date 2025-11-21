@@ -7,4 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="delete_button_color">#FF5252</color>
+
+    <color name="memo_title_color">#333333</color>
+    <color name="memo_content_color">#666666</color>
+    <color name="memo_date_color">#999999</color>
+    <color name="memo_reminder_color">#2196F3</color>
+    <color name="memo_completed_indicator">#4CAF50</color>
+
 </resources>
