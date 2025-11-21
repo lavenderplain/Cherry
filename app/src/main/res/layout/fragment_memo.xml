@@ -12,17 +12,24 @@
         android:padding="8dp" />
 
     <!-- 添加备忘录的浮动按钮 -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_memo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"
-        android:src="@android:drawable/ic_input_add"
-        android:contentDescription="添加备忘录" />
 
     <!-- 空状态提示 -->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:src="@android:drawable/ic_input_add"
+            android:contentDescription="添加备忘录"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="64dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
+
     <TextView
         android:id="@+id/empty_state_text"
         android:layout_width="match_parent"

@@ -32,19 +32,22 @@
             android:gravity="center" />
 
         <Button
-            android:id="@+id/delete_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/delete"
-            android:backgroundTint="@color/delete_button_color"
-            android:layout_marginEnd="8dp" />
+                android:id="@+id/delete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete"
+                android:backgroundTint="@color/delete"
+                android:layout_marginEnd="8dp"
+                android:textColorLink="@color/purple_200"
+                android:textColor="@color/black" />
 
         <Button
-            android:id="@+id/mode_switch_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/edit"
-            android:backgroundTint="?attr/colorPrimary" />
+                android:id="@+id/mode_switch_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit"
+                android:backgroundTint="@color/edit"
+                android:textColor="@color/black" />
 
     </LinearLayout>
 

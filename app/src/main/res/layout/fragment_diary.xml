@@ -9,6 +9,7 @@
     <!-- 添加日记的浮动按钮 -->
 
     <!-- 空状态提示 -->
+
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/diary_recycler_view"
             android:layout_width="match_parent"
@@ -25,8 +26,8 @@
             android:contentDescription="添加日记"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="47dp"
-            android:layout_marginBottom="62dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="64dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp" />
 

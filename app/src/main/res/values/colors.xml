@@ -14,5 +14,9 @@
     <color name="memo_date_color">#999999</color>
     <color name="memo_reminder_color">#2196F3</color>
     <color name="memo_completed_indicator">#4CAF50</color>
+    <color name="toolbar">#FFF0F5</color>
+    <color name="edit">#F0E68C</color>
+    <color name="delete">#ADD8E6</color>
+    <color name="complete">#DB7093</color>
 
 </resources>
