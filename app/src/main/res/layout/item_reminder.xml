@@ -28,7 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/tvReminderTime"
@@ -43,23 +44,23 @@
             android:id="@+id/tvReminderStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:padding="4dp"
             android:text="状态"
             android:textColor="@color/white"
             android:textSize="12sp" />
 
-    </LinearLayout>
+        <!-- 改为TextView显示文本 -->
+        <TextView
+            android:id="@+id/ivToggleComplete"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:gravity="center"
+            android:text="□"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:background="@drawable/checkbox_background" />
 
-    <!-- 添加完成按钮 -->
-    <Button
-        android:id="@+id/btnMarkComplete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="8dp"
-        android:background="@color/faint_yellow"
-        android:text="标记完成"
-        android:textColor="@color/black"
-        android:textSize="12sp" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -66,4 +66,7 @@
     <string name="reminder_marked_complete">备忘录已标记为完成</string>
     <string name="mark_complete_failed">标记失败</string>
     <string name="mark_complete">标记完成</string>
+    <string name="reminder_marked_incomplete">备忘录已标记为未完成</string>
+    <string name="mark_incomplete">标记为未完成</string>
+    <string name="toggle_complete_failed">状态切换失败</string>
 </resources>

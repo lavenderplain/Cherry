@@ -36,7 +36,7 @@ class ReminderSave(private val context: Context) {
             put("createdAt", reminder.createdAt)
             put("updatedAt", System.currentTimeMillis())
         }
-        
+
         writeFileAtomicAsync(file, json.toString())
         return file
     }
@@ -55,6 +55,28 @@ class ReminderSave(private val context: Context) {
         val reminder = load(id) ?: return
         val updatedReminder = reminder.copy(isCompleted = true, updatedAt = System.currentTimeMillis())
         saveOrUpdate(updatedReminder)
+    }
+
+    /**
+     * 标记为未完成
+     */
+    suspend fun markAsIncomplete(id: String) {
+        val reminder = load(id) ?: return
+        val updatedReminder = reminder.copy(isCompleted = false, updatedAt = System.currentTimeMillis())
+        saveOrUpdate(updatedReminder)
+    }
+
+    /**
+     * 切换完成状态
+     */
+    suspend fun toggleCompletionStatus(id: String): Boolean {
+        val reminder = load(id) ?: return false
+        val updatedReminder = reminder.copy(
+            isCompleted = !reminder.isCompleted,
+            updatedAt = System.currentTimeMillis()
+        )
+        saveOrUpdate(updatedReminder)
+        return updatedReminder.isCompleted
     }
 
     /**

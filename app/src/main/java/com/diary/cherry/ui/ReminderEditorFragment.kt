@@ -83,9 +83,9 @@ class ReminderEditorFragment : Fragment() {
             deleteReminder(view)
         }
 
-        // 完成按钮（仅编辑模式显示且未完成时显示）
+        // 完成/未完成按钮（仅编辑模式显示）
         btnComplete.setOnClickListener {
-            markAsComplete(view)
+            toggleCompleteStatus(view)
         }
     }
 
@@ -104,13 +104,15 @@ class ReminderEditorFragment : Fragment() {
             isCompleted = reminder.isCompleted
             updateTimeButtonText(btnPickTime)
 
-            // 修复逻辑：只有未完成的备忘录才显示完成按钮
+            // 根据完成状态显示不同的按钮
             if (reminder.isCompleted) {
-                btnComplete.visibility = View.GONE
-                btnComplete.text = "已完成" // 可以改为显示状态，但隐藏按钮
+                btnComplete.visibility = View.VISIBLE
+                btnComplete.text = "标记为未完成"
+                btnComplete.setBackgroundColor(0xFFFFA500.toInt()) // 橙色背景
             } else {
                 btnComplete.visibility = View.VISIBLE
                 btnComplete.text = "标记为已完成"
+                btnComplete.setBackgroundColor(0xFF4CAF50.toInt()) // 绿色背景
             }
         }
     }
@@ -200,19 +202,32 @@ class ReminderEditorFragment : Fragment() {
         }
     }
 
-    private fun markAsComplete(view: View) {
+    private fun toggleCompleteStatus(view: View) {
         if (reminderId.isNotEmpty()) {
             GlobalScope.launch(Dispatchers.IO) {
                 try {
-                    reminderSave.markAsCompleted(reminderId)
-                    requireActivity().runOnUiThread {
-                        Snackbar.make(view, "备忘录已标记为完成", Snackbar.LENGTH_SHORT).show()
-                        findNavController().navigateUp()
+                    val reminder = reminderSave.load(reminderId)
+                    if (reminder != null) {
+                        val updatedReminder = reminder.copy(
+                            isCompleted = !reminder.isCompleted,
+                            updatedAt = System.currentTimeMillis()
+                        )
+                        reminderSave.saveOrUpdate(updatedReminder)
+
+                        requireActivity().runOnUiThread {
+                            val message = if (updatedReminder.isCompleted) {
+                                "备忘录已标记为完成"
+                            } else {
+                                "备忘录已标记为未完成"
+                            }
+                            Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+                            findNavController().navigateUp()
+                        }
                     }
                 } catch (e: Exception) {
-                    Timber.e(e, "Failed to mark reminder as complete")
+                    Timber.e(e, "Failed to toggle reminder completion status")
                     requireActivity().runOnUiThread {
-                        Snackbar.make(view, "标记失败", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(view, "操作失败", Snackbar.LENGTH_SHORT).show()
                     }
                 }
             }
