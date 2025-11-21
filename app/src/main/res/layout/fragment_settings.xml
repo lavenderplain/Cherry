@@ -129,11 +129,12 @@
 
                 <!-- 选择音乐按钮 -->
                 <Button
-                    android:id="@+id/btn_select_music"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="选择音乐文件"
-                    android:layout_marginBottom="8dp" />
+                        android:id="@+id/btn_select_music"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="选择音乐文件"
+                        android:layout_marginBottom="8dp"
+                        android:backgroundTint="@color/teal_200" />
 
                 <!-- 播放模式选择 -->
                 <LinearLayout
@@ -297,18 +298,20 @@
 
                 <!-- 数据管理 -->
                 <Button
-                    android:id="@+id/btn_data_management"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="数据备份与恢复"
-                    android:layout_marginBottom="8dp" />
+                        android:id="@+id/btn_data_management"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="数据备份与恢复"
+                        android:layout_marginBottom="8dp"
+                        android:backgroundTint="@color/delete" />
 
                 <!-- 关于应用 -->
                 <Button
-                    android:id="@+id/btn_about"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="关于应用" />
+                        android:id="@+id/btn_about"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="关于应用"
+                        android:backgroundTint="@color/teal_700" />
 
             </LinearLayout>
 

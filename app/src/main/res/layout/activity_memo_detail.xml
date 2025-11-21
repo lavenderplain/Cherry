@@ -23,56 +23,57 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/back_btn"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/back"
-                android:contentDescription="@string/back" />
+                    android:id="@+id/back_btn"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="53dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/back"
+                    android:contentDescription="@string/back" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/memo_title"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/memo_title"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
             <Button
-                android:id="@+id/complete_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@string/complete"
-                app:backgroundTint="#4CAF50" />
+                    android:id="@+id/complete_btn"
+                    android:layout_width="77dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/complete"
+                    app:backgroundTint="@color/complete" />
 
             <Button
-                android:id="@+id/delete_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@string/delete"
-                app:backgroundTint="#FF5252" />
+                    android:id="@+id/delete_btn"
+                    android:layout_width="77dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/delete"
+                    app:backgroundTint="@color/delete" />
 
             <Button
-                android:id="@+id/mode_switch_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/edit"
-                app:backgroundTint="?attr/colorPrimary" />
+                    android:id="@+id/mode_switch_btn"
+                    android:layout_width="77dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/edit"
+                    app:backgroundTint="@color/edit" />
 
         </LinearLayout>
 
         <!-- 日期信息 -->
+
         <TextView
-            android:id="@+id/date_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/creation_time"
-            android:textColor="#666"
-            android:textSize="12sp" />
+                android:id="@+id/date_label"
+                android:layout_width="176dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/creation_time"
+                android:textColor="#666"
+                android:textSize="12sp" />
 
         <!-- 标题区域 -->
         <TextView
